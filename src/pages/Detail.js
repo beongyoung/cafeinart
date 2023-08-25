@@ -2,8 +2,9 @@ import React, { useState, useCallback, useEffect } from "react";
 import axios from "axios";
 import FrameComponent from "../components/FrameComponent";
 import PortalPopup from "../components/PortalPopup";
+import Header from "../components/dashboard/Header";
 
-const Home = ({ onClose }) => {
+function Detail() {
   const [isFrameOpen, setFrameOpen] = useState(false);
   const [loadArtistData, setArtistData] = useState({}); // API 데이터를 저장할 상태
   const [score, setHiddenLabel] = useState("0");
@@ -51,23 +52,7 @@ const Home = ({ onClose }) => {
   return (
     <div className="flex justify-center items-center bg-gray-100">
       <a className="[text-decoration:none] bg-white w-full overflow-hidden flex flex-col items-center justify-center gap-[32px] min-w-[320px] max-w-[660px] text-center text-lg text-dimgray font-typography-heading-small">
-        <div className="self-stretch bg-seagreen flex flex-row py-2.5 px-4 items-center justify-between">
-          <img
-            className="relative w-6 h-6 overflow-hidden shrink-0"
-            alt=""
-            src="/iconsmenu.svg"
-          />
-          <img
-            className="relative w-[91px] h-4 overflow-hidden shrink-0"
-            alt=""
-            src="/logohorizontal.svg"
-          />
-          <img
-            className="relative w-6 h-6 overflow-hidden shrink-0"
-            alt=""
-            src="/iconsuser.svg"
-          />
-        </div>
+        <Header />
         <div className="self-stretch flex flex-col items-center justify-start">
           <div className="self-stretch flex flex-col py-0 px-4 items-start justify-start">
             {/* 작가이름 */}
@@ -232,14 +217,15 @@ const Home = ({ onClose }) => {
               </div>
             </div>
           </div>
+
           <div className="self-stretch flex flex-col items-start justify-start text-center text-xs text-white font-ibm-plex-sans">
-            <div className="self-stretch rounded-3xl relative overflow-hidden bg-[url(/public/fixedaspectratio-cover-template1@3x.png)] bg-cover bg-no-repeat bg-[top] h-[664px]">
+            {/* <div className="self-stretch rounded-3xl relative overflow-hidden bg-[url(/public/fixedaspectratio-cover-template1@3x.png)] bg-cover bg-no-repeat bg-[top] h-[664px]">
               <div className="self-stretch absolute inset-0 overflow-hidden bg-[url(/public/fixedaspectratiospacer1@3x.png)] bg-cover bg-no-repeat bg-[top] opacity-0 z-0">
                 <div className="self-stretch absolute inset-0 h-72 transform -rotate-45 origin-0">
                   <div className="self-stretch transform rotate-24.47 origin-0" />
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="w-full rounded-13xl flex flex-col items-start justify-start max-w-[398px] text-left text-base text-black font-typography-heading-small">
               <div className="self-stretch overflow-hidden flex flex-col items-start justify-start">
                 <div className="self-stretch relative h-6 overflow-hidden shrink-0" />
@@ -254,15 +240,21 @@ const Home = ({ onClose }) => {
                   </div>
                 </div>
                 <div className="absolute top-[0px] left-[80px] flex flex-col items-start justify-start text-dimgray">
-                  <div className="self-stretch relative leading-[20px] font-medium">
-                    2019
-                  </div>
+                  {loadArtistData.mfg_date ? (
+                    <div className="self-stretch relative leading-[20px] font-medium">
+                      {loadArtistData.mfg_date.substring(0, 4)}
+                    </div>
+                  ) : (
+                    <div className="self-stretch relative leading-[20px] font-medium">
+                      2019
+                    </div>
+                  )}
                   <div className="self-stretch overflow-hidden flex flex-col items-start justify-start">
                     <div className="self-stretch relative h-2 overflow-hidden shrink-0" />
                   </div>
                 </div>
               </div>
-              <div className="relative w-[168px] h-7">
+              <div className="relative w-[426px] h-7">
                 <div className="absolute top-[0px] left-[0px] flex flex-col items-start justify-start">
                   <div className="self-stretch relative leading-[20px] font-medium">
                     크기
@@ -272,9 +264,15 @@ const Home = ({ onClose }) => {
                   </div>
                 </div>
                 <div className="absolute top-[0px] left-[80px] flex flex-col items-start justify-start text-dimgray">
-                  <div className="self-stretch relative leading-[20px] font-medium">
-                    53 × 45 cm
-                  </div>
+                  {loadArtistData.obj_size ? (
+                    <div className="self-stretch relative leading-[20px] font-medium">
+                      {loadArtistData.obj_size}
+                    </div>
+                  ) : (
+                    <div className="self-stretch relative leading-[20px] font-medium">
+                      53 × 45 cm
+                    </div>
+                  )}
                   <div className="self-stretch overflow-hidden flex flex-col items-start justify-start">
                     <div className="self-stretch relative h-2 overflow-hidden shrink-0" />
                   </div>
@@ -290,9 +288,16 @@ const Home = ({ onClose }) => {
                   </div>
                 </div>
                 <div className="absolute top-[0px] left-[80px] flex flex-col items-start justify-start text-dimgray">
-                  <div className="self-stretch relative leading-[20px] font-medium">
-                    Oil on Canvas
-                  </div>
+                  {loadArtistData.material ? (
+                    <div className="self-stretch relative leading-[20px] font-medium">
+                      {loadArtistData.material}
+                    </div>
+                  ) : (
+                    <div className="self-stretch relative leading-[20px] font-medium">
+                      {"Oil on Canvas"}
+                    </div>
+                  )}
+                  <div className="self-stretch relative leading-[20px] font-medium"></div>
                   <div className="self-stretch overflow-hidden flex flex-col items-start justify-start">
                     <div className="self-stretch relative h-2 overflow-hidden shrink-0" />
                   </div>
@@ -353,6 +358,6 @@ const Home = ({ onClose }) => {
       )}
     </div>
   );
-};
+}
 
-export default Home;
+export default Detail;

@@ -4,7 +4,9 @@ import {
   useNavigationType,
   useLocation,
 } from "react-router-dom";
-import Home from "./pages/Home";
+import Detail from "./pages/Detail";
+import JsonText from "./pages/jsonText";
+import Dashboard from "./pages/dashboard";
 import { useEffect } from "react";
 
 function App() {
@@ -45,7 +47,9 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Detail />} />
+      <Route path="/chart" element={<JsonText />} />
+      <Route path="/dashboard" element={<Dashboard />} />
     </Routes>
   );
 }
